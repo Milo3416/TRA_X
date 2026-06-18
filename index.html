@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo Traxión | CX Safari Consultivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --genesys-orange: #ff4f1f;
+      --genesys-purple: #2d174d;
+      --ink: #172033;
+      --muted: #5b6475;
+      --panel: #ffffff;
+      --soft: #f6f7fb;
+      --line: #e5e7eb;
+      --good: #0f766e;
+      --warn: #b45309;
+      --risk: #b91c1c;
+      --traxion-blue: #153e75;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--ink); background: #f7f8fb; }
+    .hero-gradient { background: radial-gradient(circle at 14% 10%, rgba(255,79,31,.24), transparent 29%), radial-gradient(circle at 83% 12%, rgba(21,62,117,.34), transparent 32%), linear-gradient(135deg, #10091f 0%, #241446 46%, #153e75 100%); }
+    .glass { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(14px); }
+    .card { background: var(--panel); border: 1px solid var(--line); box-shadow: 0 18px 45px rgba(15,23,42,.06); }
+    .pill { border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.10); }
+    .section-title { letter-spacing: -.035em; }
+    .topic-btn.active { background: var(--genesys-purple); color: white; border-color: var(--genesys-purple); }
+    .topic-panel { display: none; }
+    .topic-panel.active { display: block; animation: fadeIn .32s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .journey-step::before { content: ''; position: absolute; top: 1.15rem; left: -1rem; width: 1rem; height: 2px; background: #e5e7eb; }
+    .journey-step:first-child::before { display: none; }
+    .source-link { color: #4f46e5; text-decoration: underline; text-underline-offset: 3px; }
+    .accent-bar { height: 4px; background: linear-gradient(90deg, var(--genesys-orange), var(--genesys-purple)); border-radius: 999px; }
+    .print-break { break-inside: avoid; }
+    .score-badge { width: 3.2rem; height: 3.2rem; border-radius: 1.1rem; display: grid; place-items: center; font-weight: 800; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; }
+      .card { box-shadow: none; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero-gradient text-white">
+    <nav class="no-print sticky top-0 z-50 bg-[#10091f]/80 backdrop-blur border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="font-extrabold tracking-tight">CX Safari | Grupo Traxión</div>
+        <div class="hidden md:flex gap-5 text-sm text-white/80">
+          <a href="#contexto" class="hover:text-white">Contexto</a>
+          <a href="#diagnostico" class="hover:text-white">Diagnóstico</a>
+          <a href="#journey" class="hover:text-white">Journey</a>
+          <a href="#competencia" class="hover:text-white">Benchmark</a>
+          <a href="#canales-competitivos" class="hover:text-white">Canales</a>
+          <a href="#oportunidades" class="hover:text-white">Oportunidades</a>
+          <a href="#fuentes" class="hover:text-white">Fuentes</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 pill rounded-full px-4 py-2 text-sm text-white/90 mb-7">
+            <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+            Perspectiva consultiva desde Solution Consulting
+          </div>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+            Grupo Traxión: de mover operación a orquestar experiencia
+          </h1>
+          <p class="mt-6 text-lg md:text-xl text-white/82 max-w-3xl leading-relaxed">
+            Una lectura ejecutiva de experiencia de cliente para una plataforma integrada de movilidad y logística: qué canales se observan, dónde aparece fricción digital y cómo se compara Traxión frente a referentes como DHL y Estafeta.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3 text-sm">
+            <span class="px-4 py-2 rounded-full bg-white text-[#2d174d] font-semibold">Movilidad + logística</span>
+            <span class="px-4 py-2 rounded-full bg-white/15 border border-white/15">WhatsApp / Voz / Formulario</span>
+            <span class="px-4 py-2 rounded-full bg-white/15 border border-white/15">3PL / Carga / Última milla</span>
+            <span class="px-4 py-2 rounded-full bg-white/15 border border-white/15">Benchmark DHL + Estafeta</span>
+          </div>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="glass rounded-3xl p-7">
+            <p class="text-sm uppercase tracking-widest text-white/60 mb-4">Hipótesis ejecutiva</p>
+            <h2 class="text-2xl font-bold leading-snug">Traxión tiene amplitud operativa; el reto CX está en convertir esa escala en una experiencia digital inmediata, trazable y conectada.</h2>
+            <div class="accent-bar my-6"></div>
+            <p class="text-white/78 leading-relaxed">
+              Cuando un prospecto o cliente necesita cotizar, resolver una duda, dar seguimiento o contactar fuera de horario, la experiencia visible depende de pocos puntos de entrada. La oportunidad no es abrir más canales aislados, sino conectar intención, contexto y siguiente mejor acción desde el primer contacto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section id="contexto" class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5">
+          <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">01 · Contexto</p>
+          <h2 class="section-title text-3xl md:text-5xl font-extrabold mt-3">Traxión compite como plataforma integrada, no como una sola paquetería.</h2>
+          <p class="mt-5 text-slate-600 leading-relaxed">
+            El sitio público de Traxión comunica servicios especializados de movilidad y logística: transporte de personal, permisos y transporte de carga nacional e internacional, además de soluciones de logística y tecnología para cadena de suministro. Esto coloca a la compañía en una posición distinta a la de operadores enfocados únicamente en paquetería o última milla.
+          </p>
+        </div>
+        <div class="lg:col-span-7 grid md:grid-cols-2 gap-5">
+          <div class="card rounded-3xl p-6 print-break">
+            <div class="text-4xl font-extrabold text-[#ff4f1f]">3</div>
+            <p class="font-semibold mt-2">Frentes de negocio visibles</p>
+            <p class="text-sm text-slate-600 mt-2">Movilidad de carga, logística y tecnología, y movilidad de personas.</p>
+          </div>
+          <div class="card rounded-3xl p-6 print-break">
+            <div class="text-4xl font-extrabold text-[#2d174d]">F1–F2</div>
+            <p class="font-semibold mt-2">Madurez CX digital estimada</p>
+            <p class="text-sm text-slate-600 mt-2">Canales digitales básicos con baja automatización, autoservicio y orquestación visible.</p>
+          </div>
+          <div class="card rounded-3xl p-6 print-break">
+            <div class="text-4xl font-extrabold text-[#0f766e]">WA</div>
+            <p class="font-semibold mt-2">Canal digital habilitado</p>
+            <p class="text-sm text-slate-600 mt-2">WhatsApp con bot básico orientado a Cotizar y Empleo Traxión.</p>
+          </div>
+          <div class="card rounded-3xl p-6 print-break">
+            <div class="text-4xl font-extrabold text-[#b45309]">2.5/10</div>
+            <p class="font-semibold mt-2">Score CX Safari</p>
+            <p class="text-sm text-slate-600 mt-2">Lectura general de madurez digital CX visible en canales públicos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnostico" class="bg-white border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">02 · Diagnóstico visible</p>
+            <h2 class="section-title text-3xl md:text-4xl font-extrabold mt-3">La presencia digital está más orientada a capturar demanda que a resolverla en tiempo real.</h2>
+            <p class="mt-5 text-slate-600 leading-relaxed">
+              Traxión cuenta con sitio web, formulario de contacto, correo directo, WhatsApp y teléfono comercial. Sin embargo, no se observan capacidades como webchat, chat proactivo, FAQ/centro de ayuda, callback, predictive engagement, bot web o autoservicio conversacional robusto. Esto puede generar una brecha entre la escala operativa del grupo y la inmediatez esperada por clientes B2B, prospectos y candidatos.
+            </p>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                <p class="font-bold">Canales de captura</p>
+                <p class="text-sm text-slate-600 mt-1">Formulario, email, WhatsApp y teléfono.</p>
+              </div>
+              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                <p class="font-bold">Capacidades ausentes</p>
+                <p class="text-sm text-slate-600 mt-1">Webchat, FAQ, proactividad, callback y orquestación visible.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card rounded-3xl p-6">
+            <canvas id="scoreChart" height="270"></canvas>
+            <p class="text-xs text-slate-500 mt-4">Lectura CX Safari con base en señales visibles: voz, canales digitales, autoservicio, IA, omnicanalidad y proactividad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey" class="max-w-7xl mx-auto px-6 py-16">
+      <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">03 · Journey completo</p>
+      <h2 class="section-title text-3xl md:text-5xl font-extrabold mt-3 max-w-4xl">El journey de Traxión no se rompe por falta de portafolio; se puede romper por falta de continuidad conversacional.</h2>
+      <div class="mt-10 grid md:grid-cols-6 gap-4">
+        <div class="journey-step relative card rounded-3xl p-5">
+          <span class="text-xs font-bold text-orange-600">01</span>
+          <h3 class="font-bold mt-2">Entender oferta</h3>
+          <p class="text-sm text-slate-600 mt-2">Servicios, unidades, cobertura, carga, personal, logística y tecnología.</p>
+        </div>
+        <div class="journey-step relative card rounded-3xl p-5">
+          <span class="text-xs font-bold text-orange-600">02</span>
+          <h3 class="font-bold mt-2">Cotizar</h3>
+          <p class="text-sm text-slate-600 mt-2">Formulario, WhatsApp, correo o teléfono para iniciar contacto.</p>
+        </div>
+        <div class="journey-step relative card rounded-3xl p-5">
+          <span class="text-xs font-bold text-orange-600">03</span>
+          <h3 class="font-bold mt-2">Calificar necesidad</h3>
+          <p class="text-sm text-slate-600 mt-2">Origen, destino, frecuencia, tipo de servicio, industria y urgencia.</p>
+        </div>
+        <div class="journey-step relative card rounded-3xl p-5">
+          <span class="text-xs font-bold text-orange-600">04</span>
+          <h3 class="font-bold mt-2">Seguimiento comercial</h3>
+          <p class="text-sm text-slate-600 mt-2">Respuesta humana, tiempos de contacto, documentación y propuesta.</p>
+        </div>
+        <div class="journey-step relative card rounded-3xl p-5">
+          <span class="text-xs font-bold text-orange-600">05</span>
+          <h3 class="font-bold mt-2">Operar servicio</h3>
+          <p class="text-sm text-slate-600 mt-2">Ejecución logística, transporte, visibilidad, eventos y coordinación.</p>
+        </div>
+        <div class="journey-step relative card rounded-3xl p-5">
+          <span class="text-xs font-bold text-orange-600">06</span>
+          <h3 class="font-bold mt-2">Resolver y crecer</h3>
+          <p class="text-sm text-slate-600 mt-2">Incidencias, cambios, facturación, SLA, renovaciones y expansión.</p>
+        </div>
+      </div>
+
+      <div class="mt-10 grid lg:grid-cols-3 gap-6">
+        <div class="card rounded-3xl p-6 border-t-4 border-t-emerald-700">
+          <h3 class="font-extrabold text-xl">Lo que Traxión ya comunica</h3>
+          <ul class="mt-4 space-y-3 text-sm text-slate-600">
+            <li>• Portafolio amplio de movilidad y logística.</li>
+            <li>• Servicios para carga nacional e internacional.</li>
+            <li>• Soluciones de logística y tecnología.</li>
+            <li>• Transporte de personal y movilidad empresarial.</li>
+          </ul>
+        </div>
+        <div class="card rounded-3xl p-6 border-t-4 border-t-amber-700">
+          <h3 class="font-extrabold text-xl">Lo que se observa en canales</h3>
+          <ul class="mt-4 space-y-3 text-sm text-slate-600">
+            <li>• WhatsApp con menú básico de dos opciones.</li>
+            <li>• Formulario con restricción a correos corporativos.</li>
+            <li>• Teléfono con horario limitado y corte fuera de horario.</li>
+            <li>• Redes sociales más orientadas a marca que a soporte.</li>
+          </ul>
+        </div>
+        <div class="card rounded-3xl p-6 border-t-4 border-t-red-700">
+          <h3 class="font-extrabold text-xl">Riesgo CX</h3>
+          <ul class="mt-4 space-y-3 text-sm text-slate-600">
+            <li>• Prospectos con intención alta pueden quedar en espera.</li>
+            <li>• La demanda fuera de horario no encuentra resolución inmediata.</li>
+            <li>• El cliente debe repetir contexto entre canales.</li>
+            <li>• El abandono silencioso no se mide si ocurre antes del contacto.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="competencia" class="bg-slate-950 text-white">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <p class="text-sm font-bold text-orange-300 uppercase tracking-widest">04 · Benchmark competitivo</p>
+        <h2 class="section-title text-3xl md:text-5xl font-extrabold mt-3 max-w-4xl">DHL y Estafeta presionan desde ángulos diferentes: escala global, cobertura nacional y experiencia de seguimiento.</h2>
+        <p class="mt-5 text-white/70 leading-relaxed max-w-4xl">
+          Para Traxión, el benchmark no debe limitarse a paquetería. DHL representa el estándar global de logística, 3PL y cadena de suministro; Estafeta representa un referente mexicano de cobertura, distribución, última milla y logística inversa. Traxión juega una posición más amplia, pero esa amplitud necesita una experiencia digital que conecte cotización, atención, seguimiento y resolución.
+        </p>
+        <div class="mt-10 overflow-x-auto rounded-3xl border border-white/10">
+          <table class="w-full text-sm min-w-[1050px]">
+            <thead class="bg-white/10 text-white/80">
+              <tr>
+                <th class="text-left p-4">Empresa</th>
+                <th class="text-left p-4">Campo competitivo</th>
+                <th class="text-left p-4">Fortaleza pública</th>
+                <th class="text-left p-4">Riesgo / oportunidad CX para Traxión</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/10">
+              <tr>
+                <td class="p-4 font-bold">Traxión</td>
+                <td class="p-4 text-white/75">Movilidad de carga, logística y tecnología, movilidad de personas.</td>
+                <td class="p-4 text-white/75">Portafolio amplio, servicios especializados, escala corporativa y capacidades integradas.</td>
+                <td class="p-4 text-white/75">Convertir amplitud operativa en una experiencia digital clara, inmediata y trazable desde el primer contacto.</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold">DHL</td>
+                <td class="p-4 text-white/75">Logística global, envíos internacionales, freight forwarding, contract logistics y 3PL.</td>
+                <td class="p-4 text-white/75">Marca global, servicios empresariales, cadena de suministro, almacenaje, transporte, empaque y soporte a escala mundial.</td>
+                <td class="p-4 text-white/75">Eleva la expectativa de autoservicio, tracking, visibilidad, portales y soporte para clientes empresariales.</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold">Estafeta</td>
+                <td class="p-4 text-white/75">Paquetería, distribución, última milla, logística inversa y soluciones para empresas.</td>
+                <td class="p-4 text-white/75">Cobertura nacional, integrador logístico mexicano y red operativa con alcance público al 95% de la población mexicana.</td>
+                <td class="p-4 text-white/75">Presiona en experiencia de seguimiento, claridad de contacto y soporte para e-commerce y distribución nacional.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="canales-competitivos" class="bg-white border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">05 · Benchmark de canales visibles</p>
+        <h2 class="section-title text-3xl md:text-5xl font-extrabold mt-3 max-w-5xl">La diferencia competitiva está en qué tan rápido cada marca transforma intención en respuesta accionable.</h2>
+        <p class="mt-5 text-slate-600 leading-relaxed max-w-4xl">
+          Esta lectura incorpora hallazgos de observación de campo y fuentes públicas. Debe usarse como hipótesis de descubrimiento, no como auditoría técnica interna: lo relevante es identificar qué expectativas genera el mercado y dónde Traxión puede diferenciarse con orquestación conversacional.
+        </p>
+
+        <div class="mt-10 grid lg:grid-cols-3 gap-6">
+          <div class="card rounded-3xl p-7 print-break">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">Empresa</p>
+                <h3 class="text-2xl font-extrabold mt-2">Traxión</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-100">F1–F2</span>
+            </div>
+            <ul class="mt-6 space-y-3 text-sm text-slate-700">
+              <li><b>Web:</b> sitio corporativo enfocado en servicios logísticos y transporte.</li>
+              <li><b>Formulario:</b> disponible, con restricción a correos corporativos.</li>
+              <li><b>WhatsApp:</b> bot básico con opciones de Cotizar y Empleo Traxión.</li>
+              <li><b>Voz:</b> número comercial visible; fuera de horario la llamada se corta.</li>
+              <li><b>Webchat / FAQ:</b> no observado.</li>
+              <li><b>Proactividad:</b> no se observaron invitaciones, pop-ups ni predictive engagement.</li>
+              <li><b>Social:</b> redes orientadas principalmente a branding y marketing.</li>
+            </ul>
+            <div class="mt-6 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <p class="font-bold text-sm">Lectura CX</p>
+              <p class="mt-2 text-sm text-slate-600">Traxión ya captura intención, pero todavía no muestra una capa digital capaz de resolver, calificar y orquestar conversaciones de manera inmediata.</p>
+            </div>
+          </div>
+
+          <div class="card rounded-3xl p-7 print-break">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">Competidor</p>
+                <h3 class="text-2xl font-extrabold mt-2">DHL</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Escala global</span>
+            </div>
+            <ul class="mt-6 space-y-3 text-sm text-slate-700">
+              <li><b>Posicionamiento:</b> logística global, envíos internacionales, DHL Global Forwarding y DHL Supply Chain.</li>
+              <li><b>3PL:</b> comunica capacidades empresariales de logística, almacenaje, transporte, empaque y servicios de cadena de suministro.</li>
+              <li><b>Autoservicio:</b> fuerte orientación a rastreo, ubicaciones, ayuda y soporte digital.</li>
+              <li><b>Voz / soporte:</b> ecosistema de soporte amplio por país y servicio.</li>
+              <li><b>Webchat / predictive:</b> no se toma como diferenciador visible principal en esta lectura.</li>
+            </ul>
+            <div class="mt-6 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <p class="font-bold text-sm">Lectura CX</p>
+              <p class="mt-2 text-sm text-slate-600">DHL establece una expectativa alta de autoservicio, portales, trazabilidad y soporte estructurado para clientes empresariales.</p>
+            </div>
+          </div>
+
+          <div class="card rounded-3xl p-7 print-break">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">Competidor</p>
+                <h3 class="text-2xl font-extrabold mt-2">Estafeta</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Cobertura nacional</span>
+            </div>
+            <ul class="mt-6 space-y-3 text-sm text-slate-700">
+              <li><b>Posicionamiento:</b> integrador logístico mexicano para empresas nacionales e internacionales.</li>
+              <li><b>Cobertura:</b> red operativa con alcance público al 95% de la población mexicana y alianzas en más de 220 países y territorios.</li>
+              <li><b>Servicios:</b> distribución, última milla y logística inversa de alta escalabilidad.</li>
+              <li><b>Canales:</b> fuerte expectativa de rastreo, contacto y soporte en journeys de envío.</li>
+              <li><b>Social / mensajería:</b> referente útil para revisar atención en canales de alto volumen.</li>
+            </ul>
+            <div class="mt-6 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <p class="font-bold text-sm">Lectura CX</p>
+              <p class="mt-2 text-sm text-slate-600">Estafeta presiona a Traxión desde la familiaridad del mercado mexicano, la cobertura y la experiencia cotidiana de seguimiento.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-3xl border border-slate-200 bg-white">
+          <table class="w-full text-sm min-w-[1120px]">
+            <thead class="bg-slate-100 text-slate-700">
+              <tr>
+                <th class="text-left p-4">Canal / capacidad</th>
+                <th class="text-left p-4">Traxión</th>
+                <th class="text-left p-4">DHL</th>
+                <th class="text-left p-4">Estafeta</th>
+                <th class="text-left p-4">Implicación para Traxión</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-4 font-bold">Webchat / Web Messaging</td>
+                <td class="p-4">No observado.</td>
+                <td class="p-4">No se toma como canal diferencial visible principal en esta lectura.</td>
+                <td class="p-4">No se toma como canal diferencial visible principal en esta lectura.</td>
+                <td class="p-4">Oportunidad de diferenciarse con asistencia contextual dentro del sitio y captura inmediata de intención.</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold">WhatsApp / mensajería</td>
+                <td class="p-4">Bot básico de captura: Cotizar y Empleo Traxión.</td>
+                <td class="p-4">Soporte digital amplio por servicio; WhatsApp no se usa como eje en esta lectura.</td>
+                <td class="p-4">Canal relevante para contacto y seguimiento en el mercado mexicano.</td>
+                <td class="p-4">Evolucionar WhatsApp de menú de captura a canal resolutivo: cotización, calificación, seguimiento y escalamiento contextual.</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold">Autoservicio / FAQ</td>
+                <td class="p-4">FAQ o centro de ayuda no observado.</td>
+                <td class="p-4">Ecosistema de ayuda, rastreo, ubicación y soporte por servicio.</td>
+                <td class="p-4">Experiencia pública orientada a rastreo, soporte y servicios de envío.</td>
+                <td class="p-4">Construir Knowledge Management para reducir contactos repetitivos y resolver dudas antes del formulario.</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold">Voz</td>
+                <td class="p-4">Teléfono visible; horario limitado; fuera de horario se corta la llamada.</td>
+                <td class="p-4">Soporte telefónico asociado a servicios y ubicaciones por país.</td>
+                <td class="p-4">Referencia nacional para contacto y seguimiento de envíos.</td>
+                <td class="p-4">Implementar Voicebot 24/7 para cotización, estado de solicitud, clasificación de necesidad y transferencia en horario.</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold">Proactividad digital</td>
+                <td class="p-4">No se observaron pop-ups, invitaciones ni predictive engagement.</td>
+                <td class="p-4">La expectativa se resuelve más por portales, tracking y soporte estructurado.</td>
+                <td class="p-4">La expectativa se resuelve por cobertura, seguimiento y contacto.</td>
+                <td class="p-4">Diferenciarse detectando intención: visitante en servicios, cotización incompleta, dudas de cobertura o abandono de formulario.</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-bold">Orquestación omnicanal</td>
+                <td class="p-4">Limitada: formulario, email, WhatsApp y voz sin continuidad visible.</td>
+                <td class="p-4">Alta expectativa de consistencia por marca global y diversidad de portales.</td>
+                <td class="p-4">Alta expectativa en envíos, seguimiento y resolución de excepciones.</td>
+                <td class="p-4">Unificar contexto por cliente, empresa, servicio, ruta, solicitud, interacción y siguiente mejor acción.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-8 card rounded-3xl p-8 bg-gradient-to-br from-white to-orange-50">
+          <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">Insight competitivo</p>
+          <h3 class="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight">DHL compite desde escala y autoservicio estructurado; Estafeta compite desde cobertura nacional y experiencia de envío. Traxión puede diferenciarse conectando canales y casos de uso de punta a punta.</h3>
+          <p class="mt-4 text-slate-600 leading-relaxed">El espacio no ocupado con suficiente claridad es una experiencia conversacional proactiva que ayude al cliente a identificar el servicio correcto, iniciar cotización, capturar datos, recibir seguimiento y resolver excepciones sin reiniciar contexto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-16">
+      <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">06 · Señales FTS</p>
+      <h2 class="section-title text-3xl md:text-5xl font-extrabold mt-3 max-w-4xl">Lectura consultiva: del síntoma visible a la causa raíz probable.</h2>
+      <div class="mt-10 grid lg:grid-cols-3 gap-6">
+        <div class="card rounded-3xl p-7">
+          <div class="score-badge bg-red-50 text-red-700">L</div>
+          <h3 class="mt-5 text-xl font-extrabold">Lagging indicators</h3>
+          <p class="mt-3 text-slate-600 text-sm leading-relaxed">Dependencia de canales tradicionales para captación y atención; pérdida potencial de oportunidades fuera del horario comercial; menor conversión cuando el prospecto no quiere esperar contacto posterior.</p>
+        </div>
+        <div class="card rounded-3xl p-7">
+          <div class="score-badge bg-amber-50 text-amber-700">M</div>
+          <h3 class="mt-5 text-xl font-extrabold">Leaning indicators</h3>
+          <p class="mt-3 text-slate-600 text-sm leading-relaxed">Clientes obligados a completar formularios o esperar contacto; WhatsApp que captura datos pero no resuelve; ausencia de FAQ y autoservicio para dudas repetitivas.</p>
+        </div>
+        <div class="card rounded-3xl p-7">
+          <div class="score-badge bg-emerald-50 text-emerald-700">F</div>
+          <h3 class="mt-5 text-xl font-extrabold">Leading indicators</h3>
+          <p class="mt-3 text-slate-600 text-sm leading-relaxed">Estrategia digital centrada en captura de leads, no en resolución inmediata; falta de automatización omnicanal; ausencia visible de IA conversacional y engagement proactivo.</p>
+        </div>
+      </div>
+
+      <div class="mt-8 card rounded-3xl p-8 bg-gradient-to-br from-white to-orange-50">
+        <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">Root cause probable</p>
+        <h3 class="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight">Traxión probablemente ya recibe demanda por sus canales; el punto ciego es la demanda que abandona antes de identificarse porque no encuentra autoservicio, respuesta inmediata o asistencia contextual.</h3>
+      </div>
+    </section>
+
+    <section id="oportunidades" class="bg-white border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">07 · Oportunidades Genesys</p>
+        <h2 class="section-title text-3xl md:text-5xl font-extrabold mt-3 max-w-4xl">Una capa conversacional única para conectar cotización, atención, operación y seguimiento.</h2>
+        <div class="mt-9 flex flex-wrap gap-3 no-print">
+          <button class="topic-btn active px-5 py-3 rounded-full border border-slate-300 font-semibold" data-target="p1">Fase 1 · Fortify</button>
+          <button class="topic-btn px-5 py-3 rounded-full border border-slate-300 font-semibold" data-target="p2">Fase 2 · Amplify</button>
+          <button class="topic-btn px-5 py-3 rounded-full border border-slate-300 font-semibold" data-target="p3">Fase 3 · Empower</button>
+          <button class="topic-btn px-5 py-3 rounded-full border border-slate-300 font-semibold" data-target="p4">Fase 4 · Optimize</button>
+        </div>
+
+        <div class="mt-8">
+          <div id="p1" class="topic-panel active card rounded-3xl p-8">
+            <h3 class="text-2xl font-extrabold">Fortify Digital Service</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Crear una primera capa de autoservicio para dudas repetitivas, cotización y clasificación de intención sin depender únicamente de formulario o horario telefónico.</p>
+            <div class="mt-6 grid md:grid-cols-3 gap-5">
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Knowledge Base + FAQ</b><p class="text-sm text-slate-600 mt-2">Servicios, cobertura, requisitos, tipos de carga, horarios, contacto y próximos pasos.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Web Messaging</b><p class="text-sm text-slate-600 mt-2">Asistencia en sitio para visitantes con alta intención antes de abandonar.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>WhatsApp resolutivo</b><p class="text-sm text-slate-600 mt-2">De menú básico a flujo de clasificación, calificación y seguimiento.</p></div>
+            </div>
+          </div>
+          <div id="p2" class="topic-panel card rounded-3xl p-8">
+            <h3 class="text-2xl font-extrabold">Amplify Digital Support</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Conectar canales digitales y humanos para que la conversación no reinicie cuando el cliente cambia de WhatsApp a voz, correo o agente.</p>
+            <div class="mt-6 grid md:grid-cols-3 gap-5">
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Virtual Agent</b><p class="text-sm text-slate-600 mt-2">Captura de intención, origen/destino, tipo de servicio y urgencia.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Escalamiento contextual</b><p class="text-sm text-slate-600 mt-2">El agente recibe historial, datos del lead y motivo sin pedir todo de nuevo.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Voicebot 24/7</b><p class="text-sm text-slate-600 mt-2">Atención fuera de horario para captura, clasificación y promesa de seguimiento.</p></div>
+            </div>
+          </div>
+          <div id="p3" class="topic-panel card rounded-3xl p-8">
+            <h3 class="text-2xl font-extrabold">Empower Employees</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Dar a equipos comerciales, atención y operación una vista común de conversación, intención, historial, servicio solicitado y siguiente acción.</p>
+            <div class="mt-6 grid md:grid-cols-3 gap-5">
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Agent Assist</b><p class="text-sm text-slate-600 mt-2">Respuestas sugeridas por línea de negocio y motivo de contacto.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>AI Summary</b><p class="text-sm text-slate-600 mt-2">Resumen de conversación para acelerar seguimiento y transferencia.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Quality & Coaching</b><p class="text-sm text-slate-600 mt-2">Medición de consistencia, tiempos, cumplimiento y cierre de contacto.</p></div>
+            </div>
+          </div>
+          <div id="p4" class="topic-panel card rounded-3xl p-8">
+            <h3 class="text-2xl font-extrabold">Optimize CX & Operations</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">Convertir conversaciones en inteligencia: qué servicios generan más dudas, qué formularios se abandonan, qué motivos escalan y qué segmentos requieren atención prioritaria.</p>
+            <div class="mt-6 grid md:grid-cols-3 gap-5">
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Journey Analytics</b><p class="text-sm text-slate-600 mt-2">Identificar fricción por canal, servicio, etapa y tipo de cliente.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Speech & Text Analytics</b><p class="text-sm text-slate-600 mt-2">Detectar temas, sentimiento y causas raíz desde voz, chat, email y WhatsApp.</p></div>
+              <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200"><b>Predictive Engagement</b><p class="text-sm text-slate-600 mt-2">Ofrecer ayuda cuando un visitante muestra intención o fricción antes de abandonar.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fuentes" class="bg-slate-100 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">Fuentes públicas consultadas</p>
+        <h2 class="section-title text-3xl md:text-4xl font-extrabold mt-3">Base documental para uso compartible</h2>
+        <div class="mt-8 grid md:grid-cols-2 gap-5 text-sm">
+          <div class="card rounded-3xl p-6">
+            <h3 class="font-bold text-lg">Traxión</h3>
+            <ul class="mt-3 space-y-2 text-slate-600">
+              <li><a class="source-link" href="https://traxion.global/es/" target="_blank">Sitio oficial: servicios de transporte y logística</a></li>
+              <li><a class="source-link" href="https://api.traxion.global/" target="_blank">Perfil corporativo y segmentos de negocio</a></li>
+              <li><a class="source-link" href="https://api.traxion.global/assets/assets/TRAXION_-_Cierre_Solistica_VF_01_Jul_25.pdf" target="_blank">Comunicado: cierre de adquisición de Solistica</a></li>
+              <li><a class="source-link" href="https://traxion.global/lipu" target="_blank">LiPU by Traxión: transporte de personal</a></li>
+            </ul>
+          </div>
+          <div class="card rounded-3xl p-6">
+            <h3 class="font-bold text-lg">Competidores</h3>
+            <ul class="mt-3 space-y-2 text-slate-600">
+              <li><a class="source-link" href="https://www.dhl.com/mx-es/home.html" target="_blank">DHL México: logística global y envíos internacionales</a></li>
+              <li><a class="source-link" href="https://www.dhl.com/mx-es/home/supply-chain.html" target="_blank">DHL Supply Chain: 3PL y logística por contrato</a></li>
+              <li><a class="source-link" href="https://www.estafeta.com/" target="_blank">Estafeta: distribución, última milla y logística inversa</a></li>
+              <li><a class="source-link" href="https://www.estafeta.com/estafeta-como-integrador-log%C3%ADstico" target="_blank">Estafeta como integrador logístico</a></li>
+            </ul>
+          </div>
+          <div class="card rounded-3xl p-6">
+            <h3 class="font-bold text-lg">Benchmark y mercado</h3>
+            <ul class="mt-3 space-y-2 text-slate-600">
+              <li><a class="source-link" href="https://www.mordorintelligence.com/es/industry-reports/mexico-3pl-market" target="_blank">Mercado 3PL México: jugadores principales</a></li>
+              <li><a class="source-link" href="https://transporte.mx/las-12-empresas-de-autotransporte-de-carga-mas-importantes-en-mexico/" target="_blank">Ranking de autotransporte de carga en México</a></li>
+              <li><a class="source-link" href="https://enviando.com.mx/mejores-paqueterias-en-mexico/" target="_blank">Paqueterías y e-commerce logistics en México</a></li>
+              <li><a class="source-link" href="https://www.cubbo.com/posts/3pl-cdmx" target="_blank">Empresas 3PL en CDMX y logística para e-commerce</a></li>
+            </ul>
+          </div>
+          <div class="card rounded-3xl p-6">
+            <h3 class="font-bold text-lg">Nota metodológica</h3>
+            <p class="mt-3 text-slate-600 leading-relaxed">
+              Esta página sintetiza señales públicas, observaciones de canales visibles y el diagnóstico CX Safari disponible. No sustituye datos internos de Traxión: debe validarse con métricas reales de volumen, SLA, conversión, abandono, FCR, CSAT/NPS, motivos de contacto y performance por línea de negocio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#10091f] text-white">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between gap-4">
+      <p class="font-bold">CX Safari consultivo · Grupo Traxión</p>
+      <p class="text-white/60 text-sm">Preparado desde la perspectiva de Solution Consulting para conversación ejecutiva.</p>
+    </div>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.topic-btn');
+    const panels = document.querySelectorAll('.topic-panel');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+
+    const ctx = document.getElementById('scoreChart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Voz', 'Canales digitales', 'Autoservicio', 'IA conversacional', 'Omnicanalidad', 'Proactividad'],
+        datasets: [{
+          label: 'Score CX Safari / 10',
+          data: [5, 3, 1, 2, 2, 0],
+          borderWidth: 1,
+          borderRadius: 10,
+          backgroundColor: ['#153e75', '#2d174d', '#b45309', '#ff4f1f', '#64748b', '#cbd5e1']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, max: 10, ticks: { stepSize: 2 } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
